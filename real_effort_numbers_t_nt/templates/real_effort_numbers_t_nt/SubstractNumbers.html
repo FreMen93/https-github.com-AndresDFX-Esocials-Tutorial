@@ -1,0 +1,52 @@
+{% block title %}
+    Restas
+{% endblock %}
+
+
+{% block content %}
+
+    <table class="table" style="text-align:right" colspan="2" >
+    <tr>
+        <td style="font-size:30px"><label id="number_2">{{ number_2 }}</label> - <label id="number_1">{{ number_1 }}</label> = </td>
+        <td> <input type="number" name="number_entered" required id="number_entered" class="form-control" autofocus="" value="0"> </td>
+    </tr>
+    </table>
+
+    {% next_button %}
+
+{% endblock %}
+
+
+{% block scripts %}
+    <script>
+        
+
+        //Metodo para validar la respuesta ingresada y si es correcta devuelvo 1 y sino 0
+        function validateSubstract(number_1, number_2, number_entered){
+
+            let result = number_2 - number_1; //40 - 20 = 20 -> number_entered = 15
+            let correct_answer = 0;
+            if (result == number_entered){
+                correct_answer = 1;
+            }
+            return correct_answer;
+        }
+
+        //Metodo para enviar la respuesta en vivo al metodo live_method de la pagina en pages.py
+        function sendAnswer(){
+            let number_2 = parseInt($("#number_2").html());
+            let number_1 =  parseInt($("#number_1").html());
+            let number_entered = parseInt($("#number_entered").val());
+            let correct_answer = validateSubstract(number_1, number_2, number_entered); //el resultado es 1 si quedo buena o 0 si quedo mala
+            liveSend(correct_answer);//Metodo para enviar a otree la informacion en tiempo real
+        }
+
+
+
+
+
+
+    </script>
+
+
+{% endblock %}

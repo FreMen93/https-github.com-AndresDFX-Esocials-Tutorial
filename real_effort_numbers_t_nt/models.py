@@ -30,23 +30,24 @@ class Group(BaseGroup):
 
 
 class Subsession(BaseSubsession):
-    number_of_groups = self.session.num_participants // Constants.players_per_group #Numero de grupos
-    team_label = ["AB", "CD"] 
+    
+    
+    def creating_session(self):
+        team_label = ["AB", "CD"] 
+        number_of_groups = self.session.num_participants // Constants.players_per_group #Numero de grupos
+        ## STAGE 1
+        if self.round_number >= 1 and self.round_number <= Constants.num_sub_rounds_stage_1:
+            for i in range(0, number_of_groups):
+                for j in range(0, Constants.players_per_group):
+                    self.get_group_matrix(objects=True)[i][j].team =  team_label[i]
 
 
-    ## STAGE 1
-    if self.round_number >= 1 and self.round_number <= Constants.num_sub_rounds_stage_1:
-        for i in range(0, number_of_groups):
-            for j in range(0, Constants.players_per_group):
-                self.get_group_matrix(objects=True)[i][j].team = team_label[i]
-
-
-    ##STAGE 2 y 3
-    if self.round_number == Constants.num_rounds:
-        self.group_ramdonly(fixed_id_in_group=True) ## Randomizar grupos manteniento el label del jugador
-        for i in range(0, number_of_groups):
-            for j in range(0, Constants.players_per_group):
-                self.get_group_matrix(objects=True)[i][j].team_stage_2 = team_label[i]
+        ##STAGE 2 y 3
+        if self.round_number == Constants.num_rounds:
+            self.group_randomly(fixed_id_in_group=True) ## Randomizar grupos manteniento el label del jugador
+            for i in range(0, number_of_groups):
+                for j in range(0, Constants.players_per_group):
+                    self.get_group_matrix(objects=True)[i][j].team_stage_2 = team_label[i]
 
 
 
@@ -55,6 +56,25 @@ class Player(BasePlayer):
     #Variable auxiliar
     team = models.StringField()
     team_stage_2 = models.StringField()
+
+
+    #Variables de restas etapa 1
+    #Variables temporales para mostrar en el HTML
+    correct_answers_actual_round = models.IntegerField(initial=0) #Valor por defecto en 0 con initial
+    total_substract_actual_round = models.IntegerField(initial=0) 
+    wrong_substract_actual_round = models.IntegerField(initial=0)
+
+    #Variables por cada ronda
+    correct_answers_round1 = models.IntegerField(initial=0) 
+    correct_answers_round2 = models.IntegerField(initial=0) 
+    correct_answers_round3 = models.IntegerField(initial=0) 
+    correct_answers_round4 = models.IntegerField(initial=0) 
+    correct_answers_round5 = models.IntegerField(initial=0) 
+    correct_answers_round6 = models.IntegerField(initial=0) 
+    correct_answers_round7 = models.IntegerField(initial=0) 
+    correct_answers_round8 = models.IntegerField(initial=0)
+    correct_answers_round9 = models.IntegerField(initial=0)
+    correct_answers_round10 = models.IntegerField(initial=0) 
 
 
 
