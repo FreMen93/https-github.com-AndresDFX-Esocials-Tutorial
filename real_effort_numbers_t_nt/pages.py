@@ -36,7 +36,7 @@ class Stage1Questions(Page):
 class SubstractNumbers(Page):
 
     form_model = "player"
-    timeout_seconds = 60
+    timeout_seconds = 60 #tiempo en segundos
     timer_text = "Tiempo restante para completar la ronda: "
  
 
@@ -47,7 +47,10 @@ class SubstractNumbers(Page):
 
         return {
             "number_1": number1,
-            "number_2": number2
+            "number_2": number2,
+            "correct_answers": self.player.correct_answer_actual_round,
+            "total_answers": self.player.total_substract_actual_round,
+            "wrong_answers": self.player.wrong_substract_actual_round
         }
 
         #number 2 - number 1
@@ -57,6 +60,7 @@ class SubstractNumbers(Page):
         number1 = random.randint(1, 50)
         number2 = random.randint(number1, 99)
         correct_answer = int(data) #es 0 o 1; esto llega desde el html
+        #Actualizar la informacion que se muestra en cada ronda
         self.correct_answer_actual_round = self.correct_answer_actual_round + correct_answer
         self.total_substract_actual_round = self.total_substract_actual_round + 1
         self.wrong_substract_actual_round = self.total_substract_actual_round - self.correct_answer_actual_round
