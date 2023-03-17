@@ -13,9 +13,10 @@
     </table>
 
 
-    <b> Restas correctas: </b> <span id="correct_answers">{{correct_answers}}</span>
-    <b> Restas totales: </b> <span id="total_answers">{{total_answers}}</span>
-    <b> Restas incorrectas: </b> <span id="wrong_answers">{{wrong_answers}}</span>
+    <b> Restas correctas: </b> <span id="correct_answers">{{correct_answers}}</span><br>
+    <b> Restas totales: </b> <span id="total_answers">{{total_answers}}</span><br>
+    <b> Restas incorrectas: </b> <span id="wrong_answers">{{wrong_answers}}</span><br>
+    <b> Pago actual: </b> <span id="payment_actual">{{payment_actual}}</span><br>
 
     <b>Ronda </b> {{player.round_number}} de {{Constants.num_sub_rounds_stage_1}}
 
@@ -65,6 +66,7 @@
             $("#correct_answers").html(data.correct_answers);
             $("#total_answers").html(data.total_answers);
             $("#wrong_answers").html(data.wrong_answers);
+            $("#payment_actual").html(data.payment_actual);
         }
 
 

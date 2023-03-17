@@ -22,6 +22,7 @@ class Constants(BaseConstants):
     num_rounds = 11
     players_per_group = 2
     num_sub_rounds_stage_1 = 10
+    pay_per_correct_answer = 100
     
 class Group(BaseGroup):
     pass
@@ -63,6 +64,7 @@ class Player(BasePlayer):
     correct_answers_actual_round = models.IntegerField(initial=0) #Valor por defecto en 0 con initial
     total_substract_actual_round = models.IntegerField(initial=0) 
     wrong_substract_actual_round = models.IntegerField(initial=0)
+    payment_actual_round = models.IntegerField(initial=0)
 
     #Variables por cada ronda
     correct_answers_round1 = models.IntegerField(initial=0) 

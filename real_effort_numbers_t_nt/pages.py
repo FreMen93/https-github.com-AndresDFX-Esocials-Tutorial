@@ -38,6 +38,10 @@ class SubstractNumbers(Page):
     form_model = "player"
     timeout_seconds = 60 #tiempo en segundos
     timer_text = "Tiempo restante para completar la ronda: "
+
+    def is_displayed(self):
+        if self.round_number <= Constants.num_sub_rounds_stage_1:
+            return self.round_number == self.round_number
  
 
     def vars_for_template(self): ###Funcion para mostrar variables que no se almacenan en la BD
@@ -48,9 +52,10 @@ class SubstractNumbers(Page):
         return {
             "number_1": number1,
             "number_2": number2,
-            "correct_answers": self.player.correct_answer_actual_round,
+            "correct_answers": self.player.correct_answers_actual_round,
             "total_answers": self.player.total_substract_actual_round,
-            "wrong_answers": self.player.wrong_substract_actual_round
+            "wrong_answers": self.player.wrong_substract_actual_round,
+            "payment_actual": self.player.payment_actual_round
         }
 
         #number 2 - number 1
@@ -61,16 +66,18 @@ class SubstractNumbers(Page):
         number2 = random.randint(number1, 99)
         correct_answer = int(data) #es 0 o 1; esto llega desde el html
         #Actualizar la informacion que se muestra en cada ronda
-        self.correct_answer_actual_round = self.correct_answer_actual_round + correct_answer
+        self.correct_answers_actual_round = self.correct_answers_actual_round + correct_answer
         self.total_substract_actual_round = self.total_substract_actual_round + 1
-        self.wrong_substract_actual_round = self.total_substract_actual_round - self.correct_answer_actual_round
+        self.wrong_substract_actual_round = self.total_substract_actual_round - self.correct_answers_actual_round
+        self.payment_actual_round =  self.payment_actual_round + (self.correct_answers_actual_round * Constants.pay_per_correct_answer)
 
         response = dict(
             number_1=number1,
             number_2=number2,
-            correct_answers=self.correct_answer_actual_round,
+            correct_answers=self.correct_answers_actual_round,
             total_answers=self.total_substract_actual_round,
-            wrong_answers=self.wrong_substract_actual_round
+            wrong_answers=self.wrong_substract_actual_round,
+            payment_actual=self.payment_actual_round
         )
         return{
             self.id_in_group: response #self.id_in_group hace referencia al id unico del jugador en el grupo (sea 1 o 2)
@@ -78,15 +85,25 @@ class SubstractNumbers(Page):
 
 
 
+class ResultsWaitPage(WaitPage):
+    
+    def is_displayed(self):
+        if self.round_number <= Constants.num_sub_rounds_stage_1:
+            return self.round_number == self.round_number
 
 
+
+class PartialResults(Page):
+
+    timeout_seconds = 10
+    timer_tex = "La siguiente ronda comenzara en "
 
 
 # ******************************************************************************************************************** #
 # *** MANAGEMENT STAGE
 # ******************************************************************************************************************** #
 #stage_1_sequence = [Consent, Control1, Stage1Questions]
-stage_1_sequence = [SubstractNumbers]
+stage_1_sequence = [Consent, SubstractNumbers, ResultsWaitPage]
 stage_2_sequence = []
 stage_3_sequence = []
 
