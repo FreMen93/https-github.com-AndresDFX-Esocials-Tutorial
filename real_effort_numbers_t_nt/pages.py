@@ -157,7 +157,10 @@ class CombinedResults(Page):
             combined_pay_off_team = combined_pay_off_team + player.payment_actual_round + opponent.payment_actual_round
             correct_answers_team = correct_answers_team + player.correct_answers_actual_round + opponent.correct_answers_actual_round
             
+        ### Para guardar la Data necesaria en la Ronda 1
             
+        player_round1.payment_stage_1 = combined_pay_off_team
+        player_round1.correct_answers_stage_1 = correct_answers_team
             
             
 

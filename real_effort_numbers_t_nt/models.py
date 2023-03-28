@@ -71,6 +71,9 @@ class Player(BasePlayer):
     #Variable auxiliar
     team = models.StringField()
     team_stage_2 = models.StringField()
+    payment_stage_1 = models.IntegerField(initial=0)
+    correct_answers_stage_1 = models.IntegerField(initial=0)
+    
 
 
     #Variables de restas etapa 1
