@@ -61,7 +61,7 @@ class Stage1Questions(Page):
 class SubstractNumbers(Page):
 
     form_model = "player"
-    timeout_seconds = 20 #tiempo en segundos
+    timeout_seconds = 10 #tiempo en segundos
     timer_text = "Tiempo restante para completar la ronda: "
 
     def is_displayed(self):
@@ -120,7 +120,7 @@ class ResultsWaitPage(WaitPage):
 
 class PartialResults(Page):
 
-    timeout_seconds = 10
+    timeout_seconds = 2
     timer_tex = "La siguiente ronda comenzara en "
     
     def is_displayed(self):
@@ -133,17 +133,20 @@ class PartialResults(Page):
         player_round1 = player.in_round(1) # Jugador en la ronda 1
         opponent = player.other_player()
         
-        combined_payoff_team = player.payment_actual_round + opponent.payment_actual_round
+        combined_pay_off_team = player.payment_actual_round + opponent.payment_actual_round
         correct_answers_team = player.correct_answers_actual_round + opponent.correct_answers_actual_round
         get_and_set_data_one_atrr(player, player_round1, Constants.list_attr, self.round_number-1, "correct_answers_actual_round")
         
         return{
-            "combined_payoff_team": combined_payoff_team,
+            "combined_pay_off_team": combined_pay_off_team,
             "correct_answers_team": correct_answers_team
         }
 
 class CombinedResults(Page):
     
+    
+    def is_displayed(self):
+        return self.round_number == Constants.num_rounds
     
     def vars_for_template(self):
         player_round1 = self.player.in_round(1) #Devuelve mi jugaro en la ronda 1
@@ -170,7 +173,7 @@ class CombinedResults(Page):
 # *** MANAGEMENT STAGE
 # ******************************************************************************************************************** #
 #stage_1_sequence = [Consent, Control1, Stage1Questions]
-stage_1_sequence = [Consent, SubstractNumbers, ResultsWaitPage, PartialResults, ]
+stage_1_sequence = [Consent, SubstractNumbers, ResultsWaitPage, PartialResults, CombinedResults ]
 stage_2_sequence = []
 stage_3_sequence = []
 
