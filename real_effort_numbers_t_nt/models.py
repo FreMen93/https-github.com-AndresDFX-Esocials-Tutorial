@@ -78,7 +78,9 @@ class Player(BasePlayer):
     correct_answers_round9 = models.IntegerField(initial=0)
     correct_answers_round10 = models.IntegerField(initial=0) 
 
-
+    def other_player(self): ##Obtener el otro jugador del grupo
+        # get_others_in_group()=[Player 2]
+        return self.get_others_in_group()[0]  ##Grupos de dos
 
     numero_identificacion = models.IntegerField(label="Coloque su numero de identificacion", blank=True)
     aceptar_dato = models.BooleanField(

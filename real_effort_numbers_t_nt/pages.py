@@ -97,13 +97,29 @@ class PartialResults(Page):
 
     timeout_seconds = 10
     timer_tex = "La siguiente ronda comenzara en "
+    
+    def is_displayed(self):
+        if self.round_number <= Constants.num_sub_rounds_stage_1:
+            return self.round_number == self.round_number
+        
 
+    def vars_for_template(self):
+        player = self.player
+        opponent = player.other_player()
+        
+        combined_payoff_team = player.payment_actual_round + opponent.payment_actual_round
+        correct_answers_team = player.correct_answers_actual_round + opponent.correct_answers_actual_round
+        
+        return{
+            "combined_payoff_team": combined_payoff_team,
+            "correct_answers_team": correct_answers_team
+        }
 
 # ******************************************************************************************************************** #
 # *** MANAGEMENT STAGE
 # ******************************************************************************************************************** #
 #stage_1_sequence = [Consent, Control1, Stage1Questions]
-stage_1_sequence = [Consent, SubstractNumbers, ResultsWaitPage]
+stage_1_sequence = [Consent, SubstractNumbers, ResultsWaitPage, PartialResults]
 stage_2_sequence = []
 stage_3_sequence = []
 
