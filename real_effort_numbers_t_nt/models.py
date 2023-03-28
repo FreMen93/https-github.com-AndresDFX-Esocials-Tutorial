@@ -23,6 +23,20 @@ class Constants(BaseConstants):
     players_per_group = 2
     num_sub_rounds_stage_1 = 10
     pay_per_correct_answer = 100
+    list_attr = [
+        "correct_answers_round1",
+        "correct_answers_round2",
+        "correct_answers_round3",
+        "correct_answers_round4",
+        "correct_answers_round5",
+        "correct_answers_round6",
+        "correct_answers_round7",
+        "correct_answers_round8",
+        "correct_answers_round9",
+        "correct_answers_round10"
+        ]
+    
+    
     
 class Group(BaseGroup):
     pass
