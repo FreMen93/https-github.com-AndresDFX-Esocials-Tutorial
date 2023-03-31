@@ -164,6 +164,11 @@ class CombinedResults(Page):
             
         player_round1.payment_stage_1 = combined_pay_off_team
         player_round1.correct_answers_stage_1 = correct_answers_team
+        
+        return {
+            "correct_answers_team": correct_answers_team
+            "combined_pay_off_team": combined_pay_off_team            
+        }
             
             
 
