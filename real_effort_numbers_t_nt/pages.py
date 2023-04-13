@@ -170,8 +170,7 @@ class CombinedResults(Page):
             "combined_pay_off_team": combined_pay_off_team,
             "correct_answers_team": correct_answers_team
         }
-            
-            
+
 
 
 
