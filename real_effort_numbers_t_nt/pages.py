@@ -162,12 +162,13 @@ class CombinedResults(Page):
             
         ### Para guardar la Data necesaria en la Ronda 1
             
-        player_round1.payment_stage_1 = combined_pay_off_team
+        player_round1.payment_stage_1 = correct_answers_team * Constants.pay_per_correct_answer
         player_round1.correct_answers_stage_1 = correct_answers_team
+        combined_pay_off_team = player_round1.payment_stage_1
         
         return {
+            "combined_pay_off_team": combined_pay_off_team,
             "correct_answers_team": correct_answers_team
-            "combined_pay_off_team": combined_pay_off_team            
         }
             
             
