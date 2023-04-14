@@ -187,7 +187,7 @@ class CombinedResults(Page):
 # *** MANAGEMENT STAGE
 # ******************************************************************************************************************** #
 #stage_1_sequence = [Consent, Control1, Stage1Questions]
-stage_1_sequence = [Consent, SubstractNumbers, ResultsWaitPage, PartialResults, CombinedResults ]
+stage_1_sequence = [Consent, Control1, Stage1Questions, SubstractNumbers, ResultsWaitPage, PartialResults, CombinedResults ]
 stage_2_sequence = []
 stage_3_sequence = []
 
