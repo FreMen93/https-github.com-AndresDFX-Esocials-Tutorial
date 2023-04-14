@@ -171,6 +171,15 @@ class CombinedResults(Page):
             "correct_answers_team": correct_answers_team
         }
 
+class Stage2Instructions(Page):
+    form_model = 'player'
+    
+    
+    def is_displayed(self):
+        return self.round_number == Constants.num_rounds
+    
+    
+    
 
 
 
